@@ -41,7 +41,7 @@ export default function Home() {
   useEffect(() => {
     if (currentPlaylistUrl) {
       const encodedUrl = encodeURIComponent(currentPlaylistUrl);
-      console.log(apiUrl+"/get_playlist_data?url="+encodedUrl);
+      console.log(apiUrl+"/api/get_playlist_data?url="+encodedUrl);
       fetch(apiUrl+encodedUrl)
         .then((response) => response.json())
         .then((data) => {
