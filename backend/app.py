@@ -119,7 +119,7 @@ def get_mp3_id3v2_tags(url: str, chunk_size=DEFAULT_CHUNK_SIZE) -> bool:
     return tag_data
         
 
-@app.route('/get_playlist_data')
+@app.route('/api/get_playlist_data')
 def get_playlist_data():
     url = request.args.get('url')
     if url is None:
