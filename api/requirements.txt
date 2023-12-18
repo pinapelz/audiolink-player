@@ -18,7 +18,7 @@ binaryornot==0.4.4
 bleach==6.1.0
 blinker==1.6.3
 boolean.py==4.0
-Brlapi==0.8.5
+Brlapi
 btrfsutil==6.6.3
 CacheControl==0.13.1
 certifi==2023.11.17
