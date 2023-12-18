@@ -42,7 +42,7 @@ export default function Home() {
     if (currentPlaylistUrl) {
       const encodedUrl = encodeURIComponent(currentPlaylistUrl);
       console.log(apiUrl+"/api/get_playlist_data?url="+encodedUrl);
-      fetch(apiUrl+"/api/"+encodedUrl)
+      fetch(apiUrl+"/api/get_playlist_data?url="+encodedUrl)
         .then((response) => response.json())
         .then((data) => {
           if (Array.isArray(data) && data.length > 0) {
