@@ -68,7 +68,7 @@ export default function Home() {
       </div>
       <input
         type="text"
-        className="text-black rounded-lg p-2 w-96"
+        className="text-black rounded-lg p-2 w-96 text-center"
         placeholder="Enter URL"
         onChange={(e) => setCurrentPlaylistUrl(e.target.value)}
       />
