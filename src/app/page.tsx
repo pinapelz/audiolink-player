@@ -52,7 +52,7 @@ export default function Home() {
           }
         });
     }
-  }, [currentPlaylistUrl]);
+  }, [currentPlaylistUrl, apiUrl]);
 
 
   return (
