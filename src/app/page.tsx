@@ -18,7 +18,7 @@ interface Playlist{
   error?: string;
 }
 export default function Home() {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
   const [playlist, setPlaylist] = useState<Playlist>({
     songs: [],
   });
