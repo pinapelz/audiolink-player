@@ -56,13 +56,12 @@ def validate_image_mime(image_data: bytes, expected_mime: str) -> bool:
     Validate that the bytes provided are a valid jpeg image
     """
     result = False
-    match expected_mime:
-        case "image/jpeg":
-            if image_data[0:2] == b'\xff\xd8' and image_data[-2:] == b'\xff\xd9':
-                result = True
-        case "image/png":
-            if image_data[0:8] == b'\x89\x50\x4e\x47\x0d\x0a\x1a\x0a' and image_data[-8:] == b'\x49\x45\x4e\x44\xae\x42\x60\x82':
-                result = True
+    if expected_mime == "image/jpeg":
+        if image_data[0:2] == b'\xff\xd8' and image_data[-2:] == b'\xff\xd9':
+            result = True
+    elif expected_mime == "image/png":
+        if image_data[0:8] == b'\x89\x50\x4e\x47\x0d\x0a\x1a\x0a' and image_data[-8:] == b'\x49\x45\x4e\x44\xae\x42\x60\x82':
+            result = True
     return result
 
 def get_mp3_id3v2_tags(url: str, chunk_size=DEFAULT_CHUNK_SIZE) -> bool:
