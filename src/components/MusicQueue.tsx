@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface SongMetadata {
     title?: string;
@@ -15,12 +15,20 @@ interface Playlist{
 }
 
 const MusicQueue: React.FC<Playlist> = ({ songs = [], currentIndex = 1 }) => {
+    const songRefs = useRef<(HTMLLIElement | null)[]>([]);
+
+    useEffect(() => {
+        if (songRefs.current[currentIndex]) {
+            songRefs.current[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }, [currentIndex]);
+
     return (
         <div className="music-queue px-2">
             <h2>Music Queue</h2>
-            <ul>
+            <ul className="max-h-[10em] overflow-y-auto">
                 {songs.map((song, index) => (
-                    <li key={index + 1} className={index === currentIndex ? 'bg-gray-200 text-black' : ''}>
+                    <li key={index + 1} ref={el => songRefs.current[index] = el} className={index === currentIndex ? 'bg-gray-200 text-black' : ''}>
                         <span className="text-xl">
                             {song.title.length > 30 ? song.title.substring(0, 26) + '...' : song.title}
                         </span> - <span>{song.artist}</span>
