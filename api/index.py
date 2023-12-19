@@ -200,7 +200,7 @@ def get_playlist_data():
                 redis.set_data(line, json.dumps(playlist_data[-1]))
         if ENABLE_CACHE and CACHE_PLAYLISTS:
             print("[INFO] Setting playlist cache data in Redis")
-            redis.set_data(url, json.dumps(playlist_data))  # Convert Python object to JSON string
+            redis.set_data(url, json.dumps(playlist_data))
         return jsonify(playlist_data)
     except Exception as e:
         return jsonify({"error": str(e)})
