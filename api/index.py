@@ -25,7 +25,9 @@ REDIS_HOST = os.environ.get("REDIS_HOST")
 REDIS_PORT = os.environ.get("REDIS_PORT")
 REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD")
 ENABLE_CACHE = os.environ.get("ENABLE_CACHE") == "True"
+ENABLE_CACHE = True
 CACHE_PLAYLISTS= os.environ.get("CACHE_PLAYLISTS") == "True"
+CACHE_PLAYLISTS = False
 
 
 class TagType(Enum):
@@ -202,7 +204,11 @@ def get_playlist_data():
             playlist_data.append(get_audio_tags(line))
             if ENABLE_CACHE:
                 print(f"[Info] Cache Miss for individual song {line}! Setting cache data")
-                redis.set_data(line, json.dumps(playlist_data[-1]))
+                try:
+                    redis.set_data(line, json.dumps(playlist_data[-1]))
+                except Exception as e:
+                    print(f"[Error] Failed to set cache data for song {line} (likely due to your Redis DB size limit)")
+                    print(e)
         if ENABLE_CACHE and CACHE_PLAYLISTS:
             print("[INFO] Setting playlist cache data in Redis")
             redis.set_data(url, json.dumps(playlist_data))
