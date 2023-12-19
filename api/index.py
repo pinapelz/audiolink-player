@@ -194,6 +194,14 @@ def get_playlist_data():
         if response.status_code != 200:
             return jsonify({"error": "Error downloading the file. Remote server responded with status code " + str(response.status_code)})
         playlist_data = []
+        response_data = response.text
+        try:
+            response_data = json.loads(response_data)
+            print("[Info] Response data is JSON. Assuming it is a JSON playlist already formatted")
+            return jsonify(response_data)
+        except Exception:
+            print("[Info] Response data is not JSON. Assuming it is a text playlist")
+            pass
         for line in response.text.splitlines():
             if line.startswith('#'):
                 continue
