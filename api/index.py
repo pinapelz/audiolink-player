@@ -172,9 +172,13 @@ def get_audio_tags(url: str, chunk_size=DEFAULT_CHUNK_SIZE):
 @app.route('/api/get_playlist_data')
 def get_playlist_data():
     url = request.args.get('url')
+    use_cache = request.args.get('cache')
     if url is None:
         print("No url provided")
         return 404
+    if use_cache is not None and use_cache == "false":
+        print("[Info] Cache disabled for this request")
+        ENABLE_CACHE = False # WILL NOT WORK for NON SERVERLESS DEPLOYMENTS
     try:
         if ENABLE_CACHE:
             redis = RedisCache(REDIS_HOST, REDIS_PORT, REDIS_PASSWORD)
