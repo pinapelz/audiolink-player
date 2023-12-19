@@ -42,6 +42,19 @@ export default function Home() {
     if (currentPlaylistUrl) {
       const encodedUrl = encodeURIComponent(currentPlaylistUrl);
       console.log(apiUrl+"/api/get_playlist_data?url="+encodedUrl);
+      if(currentPlaylistUrl && currentPlaylistUrl.endsWith(".json")){
+        fetch(currentPlaylistUrl)
+        .then((response) => response.json())
+        .then((data) => {
+          if (Array.isArray(data) && data.length > 0) {
+            setPlaylist({ songs: data });
+            setCurrentTrack(data[0]);
+            setCurrentTrackIndex(0);
+          }
+        });
+
+      }
+      else{
       fetch(apiUrl+"/api/get_playlist_data?url="+encodedUrl)
         .then((response) => response.json())
         .then((data) => {
@@ -51,6 +64,7 @@ export default function Home() {
             setCurrentTrackIndex(0);
           }
         });
+      }
     }
   }, [currentPlaylistUrl, apiUrl]);
 
