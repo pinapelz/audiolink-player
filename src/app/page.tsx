@@ -86,6 +86,22 @@ export default function Home() {
         placeholder="Enter URL"
         onChange={(e) => setCurrentPlaylistUrl(e.target.value)}
       />
+      <button className="bg-white text-black py-2 px-4 rounded mt-2 mb-2 hover:bg-gray-200"
+        onClick={() => {
+          // shuffle playlist
+          const newPlaylist = playlist.songs;
+          for (let i = newPlaylist.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [newPlaylist[i], newPlaylist[j]] = [newPlaylist[j], newPlaylist[i]];
+        }
+          setPlaylist({ songs: newPlaylist });
+          setCurrentTrack(newPlaylist[0]);
+          setCurrentTrackIndex(0);
+        }
+      }
+      >
+        Shuffle
+      </button>
       <AudioPlayer
       autoPlay
       showSkipControls
