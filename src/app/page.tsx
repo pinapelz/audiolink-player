@@ -43,7 +43,7 @@ export default function Home() {
   useEffect(() => {
     if (currentPlaylistUrl) {
       const encodedUrl = encodeURIComponent(currentPlaylistUrl);
-      if (currentPlaylistUrl && currentPlaylistUrl.endsWith(".json")) {
+      if (currentPlaylistUrl && currentPlaylistUrl.endsWith(".json") || currentPlaylistUrl.startsWith("blob")) {
         try {
           fetch(currentPlaylistUrl)
             .then((response) => response.json())
@@ -103,7 +103,9 @@ export default function Home() {
               className="hidden"
               onChange={(e) => {
                 const file = e.target.files[0];
+                const fileUrl = URL.createObjectURL(file);
                 setCurrentPlaylistUrl(URL.createObjectURL(file));
+                console.log(fileUrl);
               }}
             />
           </label>
