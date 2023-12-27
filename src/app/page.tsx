@@ -91,21 +91,27 @@ export default function Home() {
       <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
         <input
           type="text"
-          className="text-black rounded-lg w-full sm:w-96 p-2 text-center"
+          className="text-black rounded-lg w-full sm:w-48 p-2 text-center"
           placeholder="Enter URL"
           onChange={(e) => setCurrentPlaylistUrl(e.target.value)}
         />
-        <p className="text-white rounded-lg w-full sm:w-8 p-2 text-center">or</p>
-        <input
-          type="file"
-          className="text-black rounded-lg w-full sm:w-48 p-2 text-center justify-center"
-          onChange={(e) => {
-            const file = e.target.files[0];
-            console.log(file);
-            setCurrentPlaylistUrl(URL.createObjectURL(file));
-          }}
-        />
+        <div className="flex justify-center">
+          <label className="text-black bg-white rounded-lg w-auto px-2 py-1 text-center cursor-pointer">
+            Upload File
+            <input
+              type="file"
+              className="hidden"
+              onChange={(e) => {
+                const file = e.target.files[0];
+                setCurrentPlaylistUrl(URL.createObjectURL(file));
+              }}
+            />
+          </label>
+        </div>
       </div>
+
+
+      
 
       <button
         className="bg-white text-black py-2 px-4 rounded mt-2 mb-2 hover:bg-gray-200"
