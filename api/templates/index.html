@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Playlist Generator</title>
+  <style>
+    .form-container {
+      margin: 20px;
+    }
+
+    .form-container input[type="text"] {
+      width: 300px;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    .form-container input[type="submit"] {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    .info-box {
+      margin: 20px;
+    }
+
+    .info-box h1 {
+      font-size: 24px;
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+
+    .info-box h2 {
+      font-size: 18px;
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+
+
+  </style>
+</head>
+<body>
+<div class="info-box">
+    <h1>Manual Playlist Data Generator</h1>
+    <h2>What is this?</h2>
+    <p>
+        This is a seperate too used to circumvent large Redis operations as well as circumvent Vercel serverless runtime limits.
+        <br/>
+        Some songs and images are quite large and as such reach the limitations for the free tier of Vercel's services. <br/> To circumvent
+        this, you can run this tool locally to
+        pre-generate the json file containing the playlist data and upload it to any file hosting service.
+    </p>
+    <h2>Usage</h2>
+    <p style="margin-bottom: 40px;">
+        You can use a service such as <a href="https://pastebin.com/">Pastebin</a> to host your .txt file. 
+        <br/>
+        Set it as temporary as a new json file containing the actual playlist data will be generated and return to you 
+        <br/>
+        (this txt file is only used to generate this json file)
+    </p>
+    <p>
+        <i>For example your .txt file could look like this:</i>
+        <br/><br/>
+        https://someurl.com/song1.flac
+        <br/>
+        https://someurl.com/song2.flac
+        <br/>
+        https://someurl.com/song3.flac
+        
+    </p>
+</div>
+  <div class="form-container">
+    <p>
+        <b>Enter a direct link to a .txt file containing a list of direct links to FLAC Vorbis or MP3 files.</b>
+    </p>
+    <form>
+      <input type="text" id="url" name="url" placeholder="Enter URL">
+    <input type="submit" value="Submit" onclick="submitForm(event)">
+    </form>
+  </div>
+<div class="notification-container">
+    <p id="notification">
+        Current Status: Idle
+    </p>
+</div>
+</body>
+<script src="{{ url_for('static', filename='scripts/index.js') }}"></script>
+</html>
+    

@@ -28,7 +28,7 @@ export default function Home() {
     title: "No Song Selected",
     artist: "No Artist Selected",
     album: "No Album Selected",
-    album_art: "",
+    album_art: "/placeholder.png",
   });
   const searchParams = useSearchParams()
   const preload = searchParams.get('pl')
@@ -41,17 +41,22 @@ export default function Home() {
   useEffect(() => {
     if (currentPlaylistUrl) {
       const encodedUrl = encodeURIComponent(currentPlaylistUrl);
-      console.log(apiUrl+"/api/get_playlist_data?url="+encodedUrl);
       if(currentPlaylistUrl && currentPlaylistUrl.endsWith(".json")){
-        fetch(currentPlaylistUrl)
-        .then((response) => response.json())
-        .then((data) => {
-          if (Array.isArray(data) && data.length > 0) {
-            setPlaylist({ songs: data });
-            setCurrentTrack(data[0]);
-            setCurrentTrackIndex(0);
-          }
-        });
+        try{
+          fetch(currentPlaylistUrl)
+          .then((response) => response.json())
+          .then((data) => {
+            if (Array.isArray(data) && data.length > 0) {
+              setPlaylist({ songs: data });
+              setCurrentTrack(data[0]);
+              setCurrentTrackIndex(0);
+            }
+          });
+        }
+        catch(e){
+          console.log(e)
+          
+        }
 
       }
       else{
@@ -72,7 +77,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">
       <CurrentTrack
-        albumArt={"data:image/jpeg;base64," + currentTrack.album_art}
+        albumArt={"data:image/jpeg;base64," + (currentTrack.album_art || "/placeholder.png")}
         title={currentTrack.title}
         album={currentTrack.album}
         artist={currentTrack.artist}

@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
 
 import requests
@@ -25,9 +25,7 @@ REDIS_HOST = os.environ.get("REDIS_HOST")
 REDIS_PORT = os.environ.get("REDIS_PORT")
 REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD")
 ENABLE_CACHE = os.environ.get("ENABLE_CACHE") == "True"
-ENABLE_CACHE = True
 CACHE_PLAYLISTS= os.environ.get("CACHE_PLAYLISTS") == "True"
-CACHE_PLAYLISTS = False
 
 
 class TagType(Enum):
@@ -136,6 +134,7 @@ def get_audio_tags(url: str, chunk_size=DEFAULT_CHUNK_SIZE):
     """
     Check if the remote mp3 file if ID3v2
     """
+    print("[Work] Starting Job for " + url)
     response = requests.get(url, stream=True)
     if response.status_code != 200:
         print("Error downloading the file")
@@ -223,6 +222,10 @@ def get_playlist_data():
         return jsonify(playlist_data)
     except Exception as e:
         return jsonify({"error": str(e)})
+
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
