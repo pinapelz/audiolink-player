@@ -19,7 +19,11 @@ const MusicQueue: React.FC<Playlist> = ({ songs = [], currentIndex = 1 }) => {
 
     useEffect(() => {
         if (songRefs.current[currentIndex]) {
-            songRefs.current[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            songRefs.current[currentIndex]?.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
+                inline: 'center'
+            });
         }
     }, [currentIndex]);
 
@@ -30,7 +34,7 @@ const MusicQueue: React.FC<Playlist> = ({ songs = [], currentIndex = 1 }) => {
                 {songs.map((song, index) => (
                     <li key={index + 1} ref={el => songRefs.current[index] = el} className={index === currentIndex ? 'bg-gray-200 text-black' : ''}>
                         <span className="text-xl">
-                            {song.title.length > 30 ? song.title.substring(0, 26) + '...' : song.title}
+                            {song.title && song.title.length > 30 ? song.title.substring(0, 26) + '...' : song.title ?? ''}
                         </span> - <span>{song.artist}</span>
                     </li>
                 ))}

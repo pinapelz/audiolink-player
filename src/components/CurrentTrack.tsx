@@ -2,9 +2,9 @@ import React from 'react';
 
 interface CurrentTrackProps {
   albumArt: string;
-  title: string;
-  artist: string;
-  album: string;
+  title?: string;
+  artist?: string;
+  album?: string;
 }
 
 const CurrentTrack: React.FC<CurrentTrackProps> = ({ albumArt, title, artist, album }) => {

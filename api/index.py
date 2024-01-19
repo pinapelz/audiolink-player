@@ -25,6 +25,7 @@ REDIS_HOST = os.environ.get("REDIS_HOST")
 REDIS_PORT = os.environ.get("REDIS_PORT")
 REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD")
 ENABLE_CACHE = os.environ.get("ENABLE_CACHE") == "True"
+ENABLE_CACHE = False
 CACHE_PLAYLISTS= os.environ.get("CACHE_PLAYLISTS") == "True"
 
 
